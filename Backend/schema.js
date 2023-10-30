@@ -3,19 +3,16 @@ function validateEmployeeDocument(doc) {
   const expectedKeys = [
     "_id",
     "_rev",
-
     "EmployeeSerial#",
     "Emp Name",
     "DeptCode",
     "Dept Name",
     "IsManager?",
-
     "Emp Type",
     "Location Blue pages",
     "Mgr Name",
     "Leader Name",
     "Diversity",
-    
     "Work location",
     "Date of Joining",
     "Date of Leaving",

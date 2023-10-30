@@ -1,0 +1,31 @@
+{"level":"info","message":"Server is running on port 5000","timestamp":"2023-10-30T14:02:56.042Z"}
+{"level":"info","message":"[2023-10-30T14:03:16.978Z] GET /api/getEmployees","timestamp":"2023-10-30T14:03:16.978Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.739Z] GET /api/getEmpTypeData","timestamp":"2023-10-30T14:03:19.739Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.743Z] GET /api/getDeptEmpTypeData","timestamp":"2023-10-30T14:03:19.743Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.748Z] GET /api/getDiversityData","timestamp":"2023-10-30T14:03:19.748Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.751Z] GET /api/getDeptDiversityData","timestamp":"2023-10-30T14:03:19.751Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.753Z] GET /api/getLocationData","timestamp":"2023-10-30T14:03:19.753Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.755Z] GET /api/getDeptLocationData","timestamp":"2023-10-30T14:03:19.755Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.776Z] GET /api/getDOJData","timestamp":"2023-10-30T14:03:19.776Z"}
+{"level":"info","message":"[2023-10-30T14:03:19.779Z] GET /api/getDOLData","timestamp":"2023-10-30T14:03:19.780Z"}
+{"level":"info","message":"[2023-10-30T14:03:21.431Z] GET /api/getEmployees","timestamp":"2023-10-30T14:03:21.431Z"}
+{"level":"info","message":"Server is running on port 5000","timestamp":"2023-10-30T14:27:38.220Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.215Z] GET /api/getEmpTypeData","timestamp":"2023-10-30T14:27:48.215Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.252Z] GET /api/getDiversityData","timestamp":"2023-10-30T14:27:48.252Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.256Z] GET /api/getDeptEmpTypeData","timestamp":"2023-10-30T14:27:48.256Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.261Z] GET /api/getDeptDiversityData","timestamp":"2023-10-30T14:27:48.261Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.263Z] GET /api/getDOJData","timestamp":"2023-10-30T14:27:48.263Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.265Z] GET /api/getLocationData","timestamp":"2023-10-30T14:27:48.265Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.340Z] GET /api/getDeptLocationData","timestamp":"2023-10-30T14:27:48.340Z"}
+{"level":"info","message":"[2023-10-30T14:27:48.345Z] GET /api/getDOLData","timestamp":"2023-10-30T14:27:48.345Z"}
+{"level":"info","message":"[2023-10-30T14:27:55.721Z] GET /api/getEmployees","timestamp":"2023-10-30T14:27:55.721Z"}
+{"level":"info","message":"[2023-10-30T14:28:09.373Z] OPTIONS /api/updateEmployees","timestamp":"2023-10-30T14:28:09.373Z"}
+{"level":"info","message":"[2023-10-30T14:28:09.377Z] POST /api/updateEmployees","timestamp":"2023-10-30T14:28:09.377Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.743Z] GET /api/getEmpTypeData","timestamp":"2023-10-30T14:28:16.743Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.746Z] GET /api/getDeptEmpTypeData","timestamp":"2023-10-30T14:28:16.746Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.749Z] GET /api/getDiversityData","timestamp":"2023-10-30T14:28:16.749Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.752Z] GET /api/getDeptDiversityData","timestamp":"2023-10-30T14:28:16.752Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.754Z] GET /api/getLocationData","timestamp":"2023-10-30T14:28:16.754Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.757Z] GET /api/getDeptLocationData","timestamp":"2023-10-30T14:28:16.757Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.774Z] GET /api/getDOJData","timestamp":"2023-10-30T14:28:16.774Z"}
+{"level":"info","message":"[2023-10-30T14:28:16.779Z] GET /api/getDOLData","timestamp":"2023-10-30T14:28:16.779Z"}

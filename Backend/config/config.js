@@ -6,7 +6,7 @@ module.exports = {
     },
     rateLimit: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max:1000, // limit each IP to 2 requests per windowMs
+      max:1, // limit each IP to 2 requests per windowMs
       message: "Number of requests exceeded, try again later",
     },
     server: {

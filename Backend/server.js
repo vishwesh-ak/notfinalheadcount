@@ -1,127 +1,74 @@
+require('dotenv').config();
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const config = require('./config/config'); // Updated import
-
+const config = require('./config/config'); 
+const logger = require('./logger'); 
 const app = express();
 const nano = require('nano')(config.database.url);
-const db = nano.use(config.database.dbName);
+const dbName = config.dbName;
+const db = nano.use(dbName);
 
-const apiRequestLimiter = rateLimit(config.rateLimit);
+//ENV
+//require('dotenv').config();
+// const express = require('express');
+// const rateLimit = require('express-rate-limit');
+// const bodyParser = require('body-parser');
+// const cors = require('cors');
+// const config = require('./config/config'); 
+// const logger = require('./logger'); 
+// const app = express();
+// const nano = require('nano')(process.env.DATABASE_URL);
+// const db = nano.use(process.env.DATABASE_NAME);
+
+const apiRequestLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS),
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS),
+  message: "Number of requests exceeded, try again later",
+});
+
+// middleware API requests
+app.use((req, res, next) => {
+  // Log the request method, URL, and timestamp
+  logger.info(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(apiRequestLimiter);
 app.use(bodyParser.json());
 app.use(cors());
-
-// Import and use routes
 const employeeRoutes = require('./routes/employeeRoutes');
-const diversityRoutes = require('./routes/diversityRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
-
 app.use('/api', employeeRoutes);
-app.use('/api', diversityRoutes);
 app.use('/api', dashboardRoutes);
+
+// middleware API responses
+app.use((req, res, next) => {
+  //response status code+and timestamp
+  logger.info(`[${new Date().toISOString()}] Response Status: ${res.statusCode}`);
+  next();
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  if (err.name === 'DocumentNotFoundError') {
+    // Handle document not found error (HTTP 404)
+    res.status(404).json({ error: 'Document not found' });
+  } else if (err.name === 'UnauthorizedError') {
+    // Handle unauthorized access error (HTTP 401)
+    res.status(401).json({ error: 'Unauthorized access' });
+  } else if (err.name === 'ValidationError') {
+    // Handle validation error (HTTP 400)
+    res.status(400).json({ error: 'Validation error', details: err.details });
+  } else {
+    // Handle other errors as internal server errors (HTTP 500)
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 const PORT = config.server.port;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  logger.info(`Server is running on port ${PORT}`);
 });
-
-// const express = require('express');
-// const rateLimit = require('express-rate-limit') //rate limit
-// const nano = require('nano')('http://Iconic_Veda:CouchDB@localhost:5984');
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-
-// const app = express();
-// const dbName = 'employee-form';
-// const db = nano.use(dbName);
-
-// const apiRequestLimiter = rateLimit({
-//   windowMs: 1 * 60 * 1000, // 1 minute
-//   max: 2, // limit each IP to 2 requests per windowMs
-//   message: "Number of requests exceeded,try again later"
-// })
-// // Use the limit rule as an application middleware
-// app.use(apiRequestLimiter)
-
-// app.use(bodyParser.json());
-// app.use(cors());
-
-// app.post('/api/addEmployee', (req, res) => {
-//   const employeeData = req.body;
-
-//   db.insert(employeeData, (err, body) => {
-//     if (err) {
-//       console.error('Error inserting document:', err);
-//       res.status(500).json({ message: 'Error inserting document' });
-//     } else {
-//       console.log('Document inserted:', body);
-//       res.status(200).json({ message: 'Document inserted successfully' });
-//     }
-//   });
-// });
-
-// app.post('/api/updateEmployees', (req, res) => {
-//   const { employees } = req.body;
-
-//   const updatePromises = employees.map((emp) => {
-//     return new Promise((resolve, reject) => {
-//       db.insert(emp, emp._id, (err, body) => {
-//         if (err) {
-//           console.error(`Error updating document ${emp._id}:`, err);
-//           reject(err);
-//         } else {
-//           console.log(`Document ${emp._id} updated:`, body);
-//           resolve(body);
-//         }
-//       });
-//     });
-//   });
-
-// Promise.all(updatePromises)
-//     .then(() => {
-//       res.status(200).json({ message: 'Employees updated successfully' });
-//     })
-//     .catch((error) => {
-//       console.error('Error updating employees:', error);
-//       res.status(500).json({ message: 'Error updating employees' });
-//     });
-// });
-
-// app.get('/api/getEmployees', (req, res) => {
-//   db.list({ include_docs: true }, (err, body) => {
-//     if (err) {
-//       console.error('Error fetching documents:', err);
-//       res.status(500).json({ message: 'Error fetching documents' });
-//     } else {
-//       const employees = body.rows.map((row) => row.doc);
-//       res.status(200).json(employees);
-//     }
-//   });
-// });
-
-// app.get('/api/diversityCounts', (req, res) => {
-//   db.view('diversity_per_month', 'diversity', { group_level: 2 }, (err, body) => {
-//     if (err) {
-//       console.error('Error fetching diversity counts:', err);
-//       res.status(500).json({ message: 'Error fetching diversity counts' });
-//     } else {
-//       const diversityCounts = body.rows.map((row) => ({
-//         year: row.key[0],
-//         month: row.key[1],
-//         counts: row.value,
-//       }));
-//       res.status(200).json(diversityCounts);
-//     }
-//   });
-// });
-
-// const PORT = 5000;
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
-
-
 
