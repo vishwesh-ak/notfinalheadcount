@@ -1,31 +1,24 @@
 
+import React, { useState, useEffect } from 'react';
+import {
+  Datagrid,
+  useDatagrid,
+  useInlineEdit,
+  useFiltering,  
+} from '@carbon/ibm-products';
+import DatagridPagination from './DatagridPagination';
+import { pkg } from '@carbon/ibm-products/lib/settings';
+ import axios from 'axios';
+import './empPage.scss';
+//  import Search from '@carbon/react/lib/components/Search';    
+ import {  Button } from 'carbon-components-react';
+ import { Download, Filter, Add} from '@carbon/icons-react';
+ import { DatagridActions } from '@carbon/ibm-products/es/components/Datagrid/utils/DatagridActions';
+// import { DatagridActions } from './DatagridActions';
+ import { action } from '@storybook/addon-actions';
+import { Content } from '@carbon/react';
 
-
-//  import React, { useState, useEffect } from 'react';
-// // import {
-// //   Datagrid,
-// //   useDatagrid,
-// //   useInlineEdit,
-// //   useFiltering,  
-// import React, { useState, useEffect } from 'react';
-// import {
-//   Datagrid,
-//   useDatagrid,
-//   useInlineEdit,
-//   useFiltering,  
-// } from '@carbon/ibm-products';
-// import DatagridPagination from './datagridPagination';
-// import { pkg } from '@carbon/ibm-products/lib/settings';
-//  import axios from 'axios';
-// import './empPage.scss';
-// //  import Search from '@carbon/react/lib/components/Search';    
-//  import {  Button } from 'carbon-components-react';
-//  import { Download, Filter, Add} from '@carbon/icons-react';
-//  import { DatagridActions } from '@carbon/ibm-products/es/components/Datagrid/utils/DatagridActions';
-// // import { DatagridActions } from './DatagridActions';
-//  import { action } from '@storybook/addon-actions';
-// import { Content } from '@carbon/react';
-
+/*
 import React,{useState,useEffect} from "react";
 import {
   Datagrid,
@@ -35,7 +28,7 @@ import {
 } from '@carbon/ibm-products';
 import axios from "axios";
 import {Content} from "@carbon/react";
-
+*/
 
  const columns = [
   {
@@ -126,11 +119,59 @@ import {Content} from "@carbon/react";
   },
 ];
 
+var getBatchActions = function getBatchActions() {
+  return [{
+    label: 'Duplicate',
+    renderIcon: function renderIcon() {
+      return /*#__PURE__*/React.createElement(Add, {
+        size: 16
+      });
+    },
+    onClick: action('Clicked batch action button')
+  }, {
+    label: 'Add',
+    renderIcon: function renderIcon() {
+      return /*#__PURE__*/React.createElement(Add, {
+        size: 16
+      });
+    },
+    onClick: action('Clicked batch action button')
+  }, {
+    label: 'Publish to catalog',
+    renderIcon: function renderIcon() {
+      return /*#__PURE__*/React.createElement(Add, {
+        size: 16
+      });
+    },
+    onClick: action('Clicked batch action button')
+  }, {
+    label: 'Download',
+    renderIcon: function renderIcon() {
+      return /*#__PURE__*/React.createElement(Add, {
+        size: 16
+      });
+    },
+    onClick: action('Clicked batch action button')
+  }, {
+    label: 'Delete',
+    renderIcon: function renderIcon() {
+      return /*#__PURE__*/React.createElement(Add, {
+        size: 16
+      });
+    },
+    onClick: action('Clicked batch action button'),
+    hasDivider: true,
+    kind: 'danger'
+  }];
+};
 
 ///export
  export const EmpPage = () => {
   pkg.feature['Datagrid.useInlineEdit'] = true;
   const [data,setData]=useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [error, setError] = useState(null); // General error /////
+  const [httpError, setHttpError] = useState(null);
 
   const updateData=()=>{
     axios.post('http://localhost:5000/api/updateEmployees', { employees: data })
@@ -159,11 +200,115 @@ import {Content} from "@carbon/react";
       });
   }, []);
 
-  const datagridState=useDatagrid({
-    columns,
-    data,
+  
+//datagridState//
+  const datagridState = useDatagrid({
+    columns: columns,
+    data: filteredData.length > 0 ? filteredData : data,
+    initialState: {
+      pageSize: 50,
+      pageSizes: [5, 10, 25, 50],
+    },
     onDataUpdate: setData,
-  },useInlineEdit)  
+    DatagridPagination: DatagridPagination,
+    filterProps: {
+      variation: 'panel', // default
+      updateMethod: 'instant', // default
+      primaryActionLabel: 'Apply', // default
+      secondaryActionLabel: 'Cancel', // default
+      panelIconDescription: 'Open filters', // default
+      closeIconDescription: 'Close Panel',
+      sections: [
+        {categoryTitle : 'Employee Serial',
+      hasAccordion: true,
+    filters: [
+      { filterLabel:'Employee Serial',
+      filter:{
+        type: 'number',
+        column: 'sid',
+        props: {
+          NumberInput: {
+            min: 0,
+            id: 'Employee-Serial-input',
+            invalidText: 'A valid value is required',
+            label: 'EmployeeSerial',
+            placeholder: 'Type a EmployeeSerial',
+            // Add any other Carbon NumberInput props here
+          },
+        },
+      },
+      },
+      {filterLabel:'Employee Name',
+      filter:{
+        type: 'dropdown',
+        column: 'Emp Name',
+        props: {
+          Dropdown: {
+            id: 'Employee Name-dropdown',
+            ariaLabel: 'Employee Name dropdown',
+            items: ['Alice Johnson', 'John Doe', ],
+            label: 'Employee Name',
+            titleText: 'Employee Name'
+          },
+        },
+      },
+    },
+    ]}
+       
+      ],
+      shouldClickOutsideToClose: false, // default
+      // filters,
+    },
+    DatagridActions,
+      batchActions: true,
+      toolbarBatchActions: getBatchActions(),
+  }, useInlineEdit, useFiltering);
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/getEmployees')
+      .then((response) => {
+
+        setData(response.data.map(row=>{
+          const id= parseInt(row['EmployeeSerial#'])
+          const newRow = {...row}
+          console.log(newRow)
+          return newRow
+        }));
+        console.log("After setting")
+        console.log(data)
+      })
+      .catch((error) => {
+        setHttpError(error);
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  const handleFilterEmployees = () => {
+    const searchText = document.getElementById('filterInput').value.toLowerCase();
+
+    const filteredEmployees = data.filter((employee) => {
+      for (const key in employee) {
+        if (employee[key] && employee[key].toString().toLowerCase().includes(searchText)) {
+          return true;
+        }
+      }
+      return false;
+    });
+
+    setFilteredData(filteredEmployees);
+  };
+
+  const handleSaveEdits = () => {
+    console.log("Data updating")
+    console.log(data)
+    axios
+      .post('http://localhost:5000/api/updateEmployees', { employees: data })
+      .then((response) => {
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.error('Error updating employees:', error);
+      });
+  };
 
   return (
     <Content>
@@ -171,7 +316,7 @@ import {Content} from "@carbon/react";
       <h1 className="home__heading">Blue Page SyncUp</h1>
       <div>
         <Datagrid datagridState={datagridState}
-            onChange={updateData}/>
+            onChange={handleSaveEdits}/>
       </div>
     </div>
     </Content>
