@@ -1,5 +1,5 @@
-import MonthDropdown from "./Month"
-import YearDropdown from "./Year"
+import MonthDropdown from "./month"
+import YearDropdown from "./year"
 
 export const MonthYearDropdown=({setMonth,setYear})=>{
     return(

@@ -3,29 +3,27 @@ import './App.css';
 import './app.scss';
 import React, { Component } from 'react';
 import { Button, Content } from '@carbon/react';
-import CarbonHeader from './components/Header';
+import CarbonHeader from './components/header';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './content/Dashboard/Dashboard';
-import Home from './content/Home';
-import Login from './content/Login';
-import EmpPage from './content/EmpPage';
+import Dashboard from './content/dashboard/dashboard';
+import Home from './content/home';
+import Login from './content/login';
+import EmpPage from './content/empPage';
 import '@carbon/ibm-products/css/index.min.css';
-import NewPageDash from './content/Dashboard/NewPage/NewPageDash';
+import NewPageDash from './content/dashboard/newPage/newPageDash';
 
 pkg.setAllComponents(true);
 pkg.setAllFeatures(true);
 
 export default function App() {
   return (
-  <Content>
   <Routes>
   <Route exact path="/" element={<Login />} />
-      <Route path="/home" element={<div><Home /><CarbonHeader /></div>} />
+      <Route path="/home" element={<div><Home/><CarbonHeader /></div>} />
       <Route exact path="/emppage" element={<div><EmpPage /><CarbonHeader /></div>} />
-      <Route exact path="/dashboard" element={<div><div className="maincontentpage"><Dashboard/></div><CarbonHeader /></div>} />
-      <Route path="/dashnew" element={<div><div className="maincontentpage"><NewPageDash/></div><CarbonHeader /></div>} />
+      <Route exact path="/dashboard" element={<div><Dashboard/><CarbonHeader /></div>} />
+      <Route path="/dashnew" element={<div><NewPageDash/><CarbonHeader /></div>} />
   </Routes>
-  </Content>
     );
 }
 

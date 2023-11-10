@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom";
-import GetData from "../../../data/GetData";
-import { Box1 } from "../../../components/Dashboard/Box/Box1";
-import { Box3 } from "../../../components/Dashboard/Box/Box3";
-import { Box2 } from "../../../components/Dashboard/Box/Box2";
+import GetData from "../../../data/getData";
+import { Box1 } from "../../../components/dashboard/box/box1";
+import { Box2 } from "../../../components/dashboard/box/box2";
+import { Box3 } from "../../../components/dashboard/box/box3";
 import "./styles.css"
-import { Box4 } from "../../../components/Dashboard/Box/Box4";
-import { useEffect, useState } from "react";
+import { Box4 } from "../../../components/dashboard/box/box4";
 
 export default function NewPageDash(){
     const location = useLocation();

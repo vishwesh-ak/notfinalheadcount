@@ -6,7 +6,7 @@
 @use './overrides.scss';
 
 .HomeWrap{
-  padding-left: $spacing-09;
+  padding-left: $spacing-01;
 }
 
 .home__banner {
@@ -41,6 +41,8 @@
 
 .tabs-group {
   background-color: $layer-03;
+  
+  
 }
 
 .home__r3 {
@@ -53,25 +55,13 @@
   @include type-style('heading-01');
 }
 
-.home__banner,
-.home__r2,
-.home__r3 {
-  margin-right: -20px;
+// .home__banner,
+// .home__r2,
+// .home__r3 {
+//   margin-right: -20px;
 
-  @include breakpoint-down(md) {
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
-
-.cds--content {
-  padding: 0;
-   
-}
-
-.cds--content .cds--css-grid {
-  max-width: 100%;
-  @include breakpoint(md) {
-     padding-right: 20px;
-  }
- }
+//   @include breakpoint-down(md) {
+//     margin-left: 0;
+//     margin-right: 0;
+//   }
+// }

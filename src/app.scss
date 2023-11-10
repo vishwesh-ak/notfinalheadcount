@@ -1,6 +1,20 @@
-@use './components/Header/header';
-//@use'./content/Dashboard/dashboard';
-@use'./content/Login/login';
-@use'./content/EmpPage/emppage';
-@use'./content/Home/home';
+@use './components/header/header';
+@use'./content/login/login';
+@use'./content/empPage/empPage';
+@use'./content/home/home';
 
+.cds--content{
+    margin-left: 48px;
+    margin-top: 48px;
+    padding:10px;
+}
+
+@media(max-width:600px){
+    .cds--content{
+        padding:10px !important;
+    }
+
+    h1{
+        font-size: 40px !important;
+    }
+}

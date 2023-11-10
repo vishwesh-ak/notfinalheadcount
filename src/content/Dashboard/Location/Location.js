@@ -1,8 +1,8 @@
-import { SubDash } from "../../../components/Dashboard/SubDash/SubDash"
-import { Box1 } from "../../../components/Dashboard/Box/Box1";
-import { Box2 } from "../../../components/Dashboard/Box/Box2";
-import { Box3 } from "../../../components/Dashboard/Box/Box3";
-import GetData from "../../../data/GetData";
+import { Box1 } from "../../../components/dashboard/box/box1";
+import { Box2 } from "../../../components/dashboard/box/box2";
+import { Box3 } from "../../../components/dashboard/box/box3";
+import { SubDash } from "../../../components/dashboard/subDash/subDash";
+import GetData from "../../../data/getData";
 
 export default function Location(){
     const LocationData=GetData("Location");

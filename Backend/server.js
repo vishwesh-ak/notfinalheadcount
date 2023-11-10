@@ -1,17 +1,4 @@
-require('dotenv').config();
-const express = require('express');
-const rateLimit = require('express-rate-limit');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const config = require('./config/config'); 
-const logger = require('./logger'); 
-const app = express();
-const nano = require('nano')(config.database.url);
-const dbName = config.dbName;
-const db = nano.use(dbName);
-
-//ENV
-//require('dotenv').config();
+// require('dotenv').config();
 // const express = require('express');
 // const rateLimit = require('express-rate-limit');
 // const bodyParser = require('body-parser');
@@ -19,8 +6,18 @@ const db = nano.use(dbName);
 // const config = require('./config/config'); 
 // const logger = require('./logger'); 
 // const app = express();
-// const nano = require('nano')(process.env.DATABASE_URL);
-// const db = nano.use(process.env.DATABASE_NAME);
+// const nano = require('nano')(config.database.url);
+// const dbName = config.dbName;
+// const db = nano.use(dbName);
+
+
+require('dotenv').config();
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const logger = require('./logger'); 
+const app = express();
 
 const apiRequestLimiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS),
@@ -67,7 +64,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-const PORT = config.server.port;
+const PORT = process.env.SERVER_PORT
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });

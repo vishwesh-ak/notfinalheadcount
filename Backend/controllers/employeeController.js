@@ -1,7 +1,6 @@
 // controllers/employeeController.js
-const config = require('../config/config');
-const nano = require('nano')(config.database.url);
-const db = nano.use(config.database.dbName);
+const nano = require('nano')(process.env.DATABASE_URL);
+const db = nano.use(process.env.DATABASE_NAME);
 
 const addEmployee = (req, res) => {
   const employeeData = req.body;
@@ -19,12 +18,11 @@ const addEmployee = (req, res) => {
 
 const updateEmployees = (req, res) => {
   const { employees } = req.body;
-
   const updatePromises = employees.map((emp) => {
     return new Promise((resolve, reject) => {
       db.insert(emp, emp._id, (err, body) => {
         if (err) {
-          console.error(`Error updating document ${emp._id}:`, err);
+          console.error(`Error updating documenttttttt ${emp._id}:`, err);
           reject(err);
         } else {
           console.log(`Document ${emp._id} updated:`, body);
@@ -40,7 +38,7 @@ const updateEmployees = (req, res) => {
     })
     .catch((error) => {
       console.error('Error updating employees:', error);
-      res.status(500).json({ message: 'Error updating employees' });
+      res.status(500).json({ message: 'Error updating employeeeeeeeeeeees' });
     });
 };
 

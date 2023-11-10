@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   HeaderContainer,
   Header,
-  SkipToContent,
+  SkipToContent, 
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
@@ -52,16 +52,16 @@ const CarbonHeader = () => {
               isRail
             >
             <SideNavItems>
-  <SideNavLink className="headerlist" renderIcon={Home} as={Link} to="/home">
+  <SideNavLink renderIcon={Home} as={Link} to="/home">
     Home
   </SideNavLink>
-  <SideNavLink className="headerlist" renderIcon={Fade} as={Link} to="/emppage">
+  <SideNavLink renderIcon={Fade} as={Link} to="/emppage">
     BluePage
   </SideNavLink>
-  <SideNavLink className="headerlist" renderIcon={Switcher} as={Link} to="/dashboard">
+  <SideNavLink renderIcon={Switcher} as={Link} to="/dashboard">
     Dashboard
   </SideNavLink>
-  <SideNavLink className="headerlist" renderIcon={UserAvatar} as={Link} to="/">
+  <SideNavLink renderIcon={UserAvatar} as={Link} to="/">
     Logout
   </SideNavLink>
 </SideNavItems>

@@ -1,2 +1,2 @@
-import EmpPage from './EmpPage';
+import EmpPage from './empPage';
 export default EmpPage;

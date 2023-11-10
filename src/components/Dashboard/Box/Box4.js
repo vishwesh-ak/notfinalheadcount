@@ -1,8 +1,7 @@
-import { AreaChart, LollipopChart } from "@carbon/charts-react"
-import AreaOptions from "../ChartOptions/AreaOptions"
-import { Box, BoxArea, BoxHeader } from "./Box"
-import PadXAxis from "../Functions/PadXAxis"
-import LollipopOptions from "../ChartOptions/LollipopOptions"
+import { LollipopChart } from "@carbon/charts-react"
+import { Box, BoxArea, BoxHeader } from "./box"
+import PadXAxis from "../functions/padXAxis"
+import LollipopOptions from "../chartOptions/lollipopOptions"
 
 export const Box4=({data,boxheading,dashtype,boxnumber,className})=>{
     const groupname=boxnumber===1?"Onboarding":"Separated"

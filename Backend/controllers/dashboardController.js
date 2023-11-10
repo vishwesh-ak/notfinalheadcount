@@ -1,11 +1,11 @@
 // controllers/employeeController.js
-const config = require('../config/config');
-const nano = require('nano')(config.database.url);
-const db = nano.use(config.database.dbName);
+const nano = require('nano')(process.env.DATABASE_URL);
+const db = nano.use(process.env.DATABASE_NAME);
 
 const getDOJData = (req,res) => {
-    db.view('getInfo', 'DOJview?group=true', (err, body) => {
+    db.view('getInfo', 'DOJ?group=true', (err, body) => {
         if (!err) {
+          console.error('SUCCESS date_of_joining data:');
           res.status(200).json(body);
         } else {
           console.error('Error fetching date_of_joining data:', err);
@@ -15,7 +15,7 @@ const getDOJData = (req,res) => {
 }
 
 const getDOLData = (req,res) => {
-    db.view('getInfo', 'DOLview?group=true', (err, body) => {
+    db.view('getInfo', 'DOL?group=true', (err, body) => {
         if (!err) {
           res.status(200).json(body);
         } else {

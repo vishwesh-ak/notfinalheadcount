@@ -1,6 +1,6 @@
 
 /*These are the variables for storing data obtained from database!! */
-import DatabaseAPI from "./FetchData";
+import DatabaseAPI from "./fetchData";
 
 //this is where i send the data to the files that request them
 

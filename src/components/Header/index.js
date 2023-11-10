@@ -1,2 +1,2 @@
-import CarbonHeader from './Header';
+import CarbonHeader from './header';
 export default CarbonHeader;

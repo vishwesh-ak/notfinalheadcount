@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { MonthYearDropdown } from "../Dropdowns/MonthYear"
+import { MonthYearDropdown } from "../dropdowns/monthYear"
 import { DonutChart } from "@carbon/charts-react";
-import { Box, BoxArea, BoxHeader } from "./Box";
-import makeDonutValues from "../Functions/MakeDonutValues";
-import DonutOptions from "../ChartOptions/DonutOptions";
+import { Box, BoxArea, BoxHeader } from "./box";
+import makeDonutValues from "../functions/makeDonutValues";
+import DonutOptions from "../chartOptions/donutOptions";
 
 
 export const Box3=({data,boxheading,dashtype,boxnumber,className=""})=>{
