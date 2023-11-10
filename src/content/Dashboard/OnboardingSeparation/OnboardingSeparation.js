@@ -1,6 +1,6 @@
-import { Box4 } from "../../../components/dashboard/box/box4";
-import { SubDash } from "../../../components/dashboard/subDash/subDash";
-import GetData from "../../../data/getData";
+import { Box4 } from "../../../components/Dashboard/Box/Box4";
+import { SubDash } from "../../../components/Dashboard/SubDash/SubDash";
+import GetData from "../../../data/GetData";
 
 export default function OnboardingSeparation(){
     const DOJData=GetData("DOJ")

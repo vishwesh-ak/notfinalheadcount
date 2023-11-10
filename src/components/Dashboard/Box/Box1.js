@@ -1,14 +1,14 @@
 
 import { GroupedBarChart } from "@carbon/charts-react";
-import { MonthYearDropdown } from "../dropdowns/monthYear";
-import { Box, BoxArea, BoxHeader } from "./box";
+import { MonthYearDropdown } from "../Dropdowns/MonthYear";
+import { Box, BoxArea, BoxHeader } from "./Box";
 import "./styles.scss";
 import '@carbon/charts-react/styles.css'
 import { useState } from "react";
 
-import GenerateGroupedBarChart from "../functions/generateGroupedBarChart"
-import GenerateComplexBarChart from "../functions/generateComplexBarChart"
-import BarOptions from "../chartOptions/barOptions";
+import GenerateGroupedBarChart from "../Functions/GenerateGroupedBarChart"
+import GenerateComplexBarChart from "../Functions/GenerateComplexBarChart"
+import BarOptions from "../ChartOptions/BarOptions";
 
 export const Box1=({className,data,boxheading,dashtype,boxnumber,charttype="simple"})=>{
     const [month1,setMonth1]=useState(new Date().getMonth() +1);

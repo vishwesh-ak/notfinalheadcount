@@ -1,9 +1,9 @@
 import { GroupedBarChart} from "@carbon/charts-react"
-import { Box, BoxArea, BoxHeader } from "./box"
+import { Box, BoxArea, BoxHeader } from "./Box"
 import { useState } from "react"
-import { MonthYearDropdown } from "../dropdowns/monthYear"
-import BarOptions from "../chartOptions/barOptions"
-import GenerateGroupedBarChart from "../functions/generateGroupedBarChart"
+import { MonthYearDropdown } from "../Dropdowns/MonthYear"
+import BarOptions from "../ChartOptions/BarOptions"
+import GenerateGroupedBarChart from "../Functions/GenerateGroupedBarChart"
 
 
 export const Box2=({data,boxheading,dashtype,className,boxnumber})=>{

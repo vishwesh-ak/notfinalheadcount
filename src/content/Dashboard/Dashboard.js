@@ -1,8 +1,8 @@
 
-import Diversity from "./diversity/diversity";
-import EmpType from "./empType/empType";
-import Location from "./location/location";
-import OnboardingSeparation from "./onboardingSeparation/onboardingSeparation";
+import Diversity from "./Diversity/Diversity";
+import EmpType from "./EmpType/EmpType";
+import Location from "./Location/Location";
+import OnboardingSeparation from "./OnboardingSeparation/OnboardingSeparation";
 import { Content } from "@carbon/react";
 
 
