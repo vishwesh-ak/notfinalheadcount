@@ -1,70 +1,218 @@
-# Getting Started with Create React App
+# carbon_headcount
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Step 1: Creating a root folder
+-> Create a folder and open it in a code editor
 
-## Available Scripts
+## Step 2: CouchDB database creation
 
-In the project directory, you can run:
+Structure of the document:
 
-### `npm start`
+<pre>
+      "_id",
+      "_rev",
+      "EmployeeSerial#",
+      "Emp Name",
+      "DeptCode",
+      "Dept Name",
+      "IsManager?",
+      "Emp Type",
+      "Location Blue pages",
+      "Mgr Name",
+      "Leader Name",
+      "Diversity",
+      "Work location",
+      "Date of Joining",
+      "Date of Leaving",
+      "Remarks",
+      "Employee Status"
+</pre>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Step 3: CouchDB view creation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Design Name: getInfo
 
-### `npm test`
+Note: The reducing function for all the views is **_count**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. View Name: fulldata
+<pre>
+      function (doc) {
+  emit([
+    doc["EmployeeSerial#"],doc["Emp Name"],doc["DeptCode"],doc["Dept Name"],
+    doc["IsManager?"],doc["Emp Type"],doc["Location Blue pages"],
+    doc["Mgr Name"],doc["Leader Name"],doc["Diversity"],doc["Work location"],
+    doc["Date of Joining"],doc["Date of Leaving"],doc["Remarks"],doc["Employee Status"]
+    ],1);
+}
+</pre>
 
-### `npm run build`
+2. View Name: DOL
+<pre>
+      function(doc) {
+  var d = new Date(doc["Date of Leaving"]);
+  var month = d.getMonth() + 1; // 0 - 11
+  var year = d.getFullYear();
+  emit([year,month],1);
+}
+</pre>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. View Name: DOJ
+<pre>
+      function(doc) {
+  var d = new Date(doc["Date of Joining"]);
+  var month = d.getMonth() + 1; // 0 - 11
+  var year = d.getFullYear();
+  emit([year,month],1);
+}
+</pre>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. View Name:  diversityview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j, month_j, year_l, month_l, doc["Diversity"], doc["Leader Name"]],1);
+}
+</pre>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. View Name: emptyview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j, month_j, year_l, month_l, doc["Emp Type"], doc["Leader Name"]],1);
+}
+</pre>
 
-### `npm run eject`
+6. View Name: locationview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j, month_j, year_l, month_l, doc["Work location"], doc["Leader Name"]],1);
+}
+</pre>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+7. View Name: dept_locationview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j,month_j,year_l,month_l,doc["Work location"],doc["Dept Name"]],1);
+}
+</pre>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+8. View Name: dept_diversityview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j,month_j,year_l,month_l,doc["Diversity"],doc["Dept Name"]],1);
+}
+</pre>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+9. View Name: dept_emptypeview
+<pre>
+      function(doc) {
+  var j = new Date(doc["Date of Joining"]);
+  var month_j = j.getMonth() + 1; // 0 - 11
+  var year_j = j.getFullYear();
+  
+  var l = new Date(doc["Date of Leaving"]);
+  var month_l = l.getMonth() + 1; // 0 - 11
+  var year_l = l.getFullYear();
+  emit([year_j,month_j,year_l,month_l,doc["Emp Type"],doc["Dept Name"]],1);
+}
+</pre>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Step 3: Set up the backend server
+-> Add Backend/server.js to the root folder<br>
+-> In the server.js file make the following changes:<br>
+In Line 2: Replace username, password of CouchDB database with your own, in the format: http://username:password@localhost:5984 <br>
+In Line 7: Replace database name with your own pre-exisiting database name: const dbName = 'database-name'; <br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<pre>
+      npm install
+      npm install axios
+      npm install express nano body-parser cors
+      npm install --legacy-peer-deps
+      npm install express express-rate-limit
+      npm install dotenv
+      npm install web-vitals
+      npm install winston  
+</pre>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-> Making the .env file<br>
+Replace username, password of CouchDB database with your own, in the format: http://username:password@localhost:5984 <br>
+<pre>
+      DATABASE_URL=http://admin:password@localhost:5984
+      DATABASE_NAME=employee-form
+      RATE_LIMIT_WINDOW_MS=60000
+      RATE_LIMIT_MAX_REQUESTS=2
+      SERVER_PORT=5000
 
-### Code Splitting
+</pre>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Step 4: Set up the Frontend
+-> For the Bluepage
+<pre>
+      npm install
+      npm install axios
+      npm install @carbon/react
+</pre>
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Step 5: Dashboard Dependencies
+<pre>
+      "@carbon/charts-react": "^1.13.6",
+      "@carbon/ibm-products": "^2.10.2",
+      "@carbon/react": "^1.39.0",
+      "axios": "^1.5.1",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-router-dom": "^6.16.0",
+      "react-scripts": "5.0.1",
+      "web-vitals": "^2.1.4"
 
-### Making a Progressive Web App
+</pre>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Step 6: Execution
+-> Split the terminal in the code editor (one for backend, one for frontend) 
+<pre>
+     cd folder-name
+     cd app-name
+</pre>
+-> To execute the backend:
+<pre>
+    cd Backend
+    node server.js
+</pre>
+->To execute the front end: 
+<pre>
+    npm start
+</pre>
