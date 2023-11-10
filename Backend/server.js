@@ -10,6 +10,7 @@
 // const dbName = config.dbName;
 // const db = nano.use(dbName);
 
+//updated
 
 require('dotenv').config();
 const express = require('express');
