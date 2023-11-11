@@ -3,6 +3,7 @@ import { Pagination } from '@carbon/react';
 
 const DatagridPagination = ({ state, setPageSize, gotoPage, rows }) => {
   const updatePagination = ({ page, pageSize }) => {
+    console.log(state);
     setPageSize(pageSize);
     gotoPage(page - 1);  
   };
@@ -17,6 +18,6 @@ const DatagridPagination = ({ state, setPageSize, gotoPage, rows }) => {
     />
   );
 };
-
+ 
 export default DatagridPagination;
   

@@ -11,9 +11,7 @@ import { pkg } from '@carbon/ibm-products/lib/settings';
 import './emppage.scss';
   import {  Button } from 'carbon-components-react';
  import { Download, Filter, Add} from '@carbon/icons-react';
- import { DatagridActions } from '@carbon/ibm-products/es/components/Datagrid/utils/DatagridActions';
-
-
+ import {DatagridActions} from './DatagridActions';
 import Papa from 'papaparse';  
 
  const defaultHeader = [
@@ -119,7 +117,6 @@ import Papa from 'papaparse';
   const [error, setError] = useState(null); 
   const [httpError, setHttpError] = useState(null);
  
-
 //datagridState//
   const datagridState = useDatagrid({
     columns: columns,
@@ -171,8 +168,7 @@ import Papa from 'papaparse';
         },
       },
     },
-    ]}
-       
+    ]} 
       ],
       shouldClickOutsideToClose: false,  
      },
@@ -189,6 +185,7 @@ import Papa from 'papaparse';
         console.error('Error fetching data:', error);
       });
   }, []);
+
   
   const handleFilterEmployees = () => {
     const searchText = document.getElementById('filterInput').value.toLowerCase();
@@ -242,6 +239,7 @@ const handleDownloadData = () => {
       console.error('Error downloading data:', error);
     });
 };
+ 
 
   return (
     <div className="EmpPageWrap">
@@ -255,20 +253,17 @@ const handleDownloadData = () => {
         ) : error ? (
           <p>Error fetching data: {error}</p>
         ) : (
-          <Datagrid datagridState={{ ...datagridState }} onBlur={handleSaveEdits}/>
+          <Datagrid datagridState={{ ...datagridState }} 
+          onBlur={handleSaveEdits}
+          />
+
         )}
         {error && <p>Error fetching data: {error}</p>}
+    {/* <Button 
+      kind="secondary"
+      onClick={handleSaveEdits}>Save Edits</Button> */}
       </div>
 
-<div className="buttonContainer">
-<Button
-    kind="secondary"
-    renderIcon={Download}
-    onClick={handleDownloadData}
-  >
-    {/* Download Data */}
-  </Button>
-</div>
     </div>
   );
 };
