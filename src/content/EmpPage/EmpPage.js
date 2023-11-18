@@ -9,8 +9,6 @@ import DatagridPagination from './DatagridPagination';
 import { pkg } from '@carbon/ibm-products/lib/settings';
  import axios from 'axios';
 import './emppage.scss';
-  import {  Button } from 'carbon-components-react';
- import { Download, Filter, Add} from '@carbon/icons-react';
  import {DatagridActions} from './DatagridActions';
 import Papa from 'papaparse';  
 
@@ -259,9 +257,6 @@ const handleDownloadData = () => {
 
         )}
         {error && <p>Error fetching data: {error}</p>}
-    {/* <Button 
-      kind="secondary"
-      onClick={handleSaveEdits}>Save Edits</Button> */}
       </div>
 
     </div>
