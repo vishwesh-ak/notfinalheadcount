@@ -5,12 +5,11 @@ import {
   useInlineEdit,
   useFiltering,  
 } from '@carbon/ibm-products';
-import DatagridPagination from './DatagridPagination';
+import DatagridPagination from './datagridPagination';
 import { pkg } from '@carbon/ibm-products/lib/settings';
- import axios from 'axios';
+import axios from 'axios';
 import './emppage.scss';
- import {DatagridActions} from './DatagridActions';
-import Papa from 'papaparse';  
+import {DatagridActions} from './DatagridActions';
 
  const defaultHeader = [
   {
@@ -111,8 +110,8 @@ import Papa from 'papaparse';
   pkg.feature['Datagrid.useInlineEdit'] = true;
 
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [error, setError] = useState(null); 
+  const [filteredData] = useState([]);
+  const [error] = useState(null); 
   const [httpError, setHttpError] = useState(null);
  
 //datagridState//
@@ -136,17 +135,17 @@ import Papa from 'papaparse';
         {categoryTitle : 'Employee Serial',
       hasAccordion: true,
     filters: [
-      { filterLabel:'Employee Serial',
+      { filterLabel:'Date of Joining',
       filter:{
         type: 'number',
-        column: 'EmployeeSerial#',
+        column: 'Date of Joining',
         props: {
           NumberInput: {
             min: 0,
-            id: 'Employee-Serial-input',
+            id: 'Date-Serial-input',
             invalidText: 'A valid value is required',
-            label: 'EmployeeSerial',
-            placeholder: 'Type a EmployeeSerial',
+            label: 'Date of Joining',
+            placeholder: 'Type Date of Joining',
            },
         },
       },
@@ -185,20 +184,7 @@ import Papa from 'papaparse';
   }, []);
 
   
-  const handleFilterEmployees = () => {
-    const searchText = document.getElementById('filterInput').value.toLowerCase();
-
-    const filteredEmployees = data.filter((employee) => {
-      for (const key in employee) {
-        if (employee[key] && employee[key].toString().toLowerCase().includes(searchText)) {
-          return true;
-        }
-      }
-      return false;
-    });
-
-    setFilteredData(filteredEmployees);
-  };
+ 
 
   const handleSaveEdits = () => {
     axios
@@ -211,32 +197,6 @@ import Papa from 'papaparse';
       });
   };
 
-const handleDownloadData = () => {
-  axios
-    .get('http://localhost:5000/api/getEmployees')
-    .then((response) => {
-      const data = response.data;
-
-      //   data to CSV using PapaParse
-      const csvData = Papa.unparse(data);
-
-      //   Blob with the CSV data
-      const blob = new Blob([csvData], { type: 'text/csv' });
-
-      //   download link
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.setAttribute('download', 'employees.csv');
-
-       document.body.appendChild(link);
-      link.click();
-
-       document.body.removeChild(link);
-    })
-    .catch((error) => {
-      console.error('Error downloading data:', error);
-    });
-};
  
 
   return (
@@ -257,6 +217,9 @@ const handleDownloadData = () => {
 
         )}
         {error && <p>Error fetching data: {error}</p>}
+    {/* <Button 
+      kind="secondary"
+      onClick={handleSaveEdits}>Save Edits</Button> */}
       </div>
 
     </div>
@@ -264,3 +227,5 @@ const handleDownloadData = () => {
 };
 
 export default EmpPage;
+
+
