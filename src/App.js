@@ -1,8 +1,7 @@
 import { pkg } from '@carbon/ibm-products';
 import './App.css';
 import './app.scss';
-import React, { Component } from 'react';
-import { Button, Content } from '@carbon/react';
+import { Content } from '@carbon/react';
 import CarbonHeader from './components/Header/Header';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './content/Dashboard/Dashboard';
