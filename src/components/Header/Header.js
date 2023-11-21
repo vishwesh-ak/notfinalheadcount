@@ -5,8 +5,6 @@ import {
   SkipToContent, 
   HeaderMenuButton,
   HeaderName,
-  HeaderGlobalBar,
-  HeaderGlobalAction,
   SideNav,
   SideNavItems,
   SideNavLink,
@@ -14,7 +12,6 @@ import {
 } from '@carbon/react';
 import { Switcher, Fade, Home } from '@carbon/icons-react';
 import { Link } from 'react-router-dom';
-import { Table } from 'carbon-components-react';
 import { UserAvatar } from '@carbon/icons-react';
 
 const CarbonHeader = () => {
